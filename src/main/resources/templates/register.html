@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>New user</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+    <style>
+        main {
+          margin-top: 25px;
+        }
+
+    </style>
+</head>
+<body class="d-flex flex-column h-100">
+
+
+<nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
+    <div class="container-fluid">
+        <h1 class="d-flex align-items-center fs-4 text-white mb-0">
+            <img src="../static/img/logo.png" th:src="@{/img/logo.png}" width="38" height="40" class="me-3" alt="Bootstrap">
+            TaskApp
+        </h1>
+    </div>
+</nav>
+<main class="flex-shrink-0">
+    <h1 class="text-center">Register new user</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="#" th:action="@{/auth/register/submit}" method="post" th:object="${user}">
+                    <div class="mb-3">
+                        <label for="inputFullname" class="form-label">Fullname</label>
+                        <input type="text" class="form-control" id="inputFullname" th:field="*{fullname}"
+                               th:classappend="${#fields.hasErrors('fullname')} ? 'is-invalid'">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="inputUsername" th:field="*{username}"
+                               th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="inputEmail" th:field="*{email}"
+                               th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="inputPassword1" th:field="*{password}"
+                               th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword2" class="form-label">Repeat Password</label>
+                        <input type="password" class="form-control" id="inputPassword2" th:field="*{verifyPassword}"
+                               th:classappend="${#fields.hasErrors('verifyPassword')} ? 'is-invalid'">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('verifyPassword')}" th:errors="*{verifyPassword}"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</main>
+<footer class="footer mt-auto py-3 bg-light fixed-bottom">
+    <div class="container text-center">
+        <span class="text-muted">TaskApp - Alba Velasco González</span>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
