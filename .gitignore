@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Mac ###
+!**/src/main/resources/.DS_Store
+!**/src/main/resources/static/.DS_Store
