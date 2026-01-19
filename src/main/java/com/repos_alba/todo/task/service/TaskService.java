@@ -5,10 +5,12 @@ import com.repos_alba.todo.category.model.CategoryRepository;
 import com.repos_alba.todo.tag.service.TagService;
 import com.repos_alba.todo.task.dto.CreateTaskRequest;
 import com.repos_alba.todo.task.exception.EmptyTaskListException;
+import com.repos_alba.todo.task.exception.TaskNotFoundException;
 import com.repos_alba.todo.task.model.Task;
 import com.repos_alba.todo.task.model.TaskRepository;
 import com.repos_alba.todo.user.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -23,13 +25,43 @@ public class TaskService {
     private  final TagService tagService;
 
 
-    public List<Task> findAll(){
-        List<Task> result = taskRepository.findAll();
-        if(result.isEmpty()){
+//    public List<Task> findAll(){
+//        List<Task> result = taskRepository.findAll();
+//        if(result.isEmpty()){
+//            throw new EmptyTaskListException();
+//        }
+//        return result;
+//    }
+
+
+    private List<Task> findAll(User user) {
+
+        List<Task> result = null;
+
+        if (user != null)
+            result = taskRepository.findByAuthor(user, Sort.by("createdAt").ascending());
+        else
+            result = taskRepository.findAll(Sort.by("createdAt").ascending());
+
+        if (result.isEmpty())
             throw new EmptyTaskListException();
-        }
+
         return result;
     }
+
+    public List<Task> findAllByUser(User user) {
+        return findAll(user);
+    }
+
+    public List<Task> findAllAdmin() {
+        return findAll(null);
+    }
+
+    public Task findById(Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+    }
+
 
     public Task createTask(CreateTaskRequest req, User author) {
         return createOrEditTask(req, author);
