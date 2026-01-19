@@ -1,6 +1,8 @@
 package com.repos_alba.todo.shared.init;
 
+import com.repos_alba.todo.category.model.Category;
 import com.repos_alba.todo.category.model.CategoryRepository;
+import com.repos_alba.todo.task.dto.CreateTaskRequest;
 import com.repos_alba.todo.task.service.TaskService;
 import com.repos_alba.todo.user.dto.CreateUserRequest;
 import com.repos_alba.todo.user.model.User;
@@ -18,10 +20,15 @@ import java.util.List;
 public class DataSeed {
 
     private final UserService userService;
+    private final CategoryRepository categoryRepository;
+    private final TaskService taskService;
 
     @PostConstruct
     public void init() {
+
+        insertCategories();
         List<User> users =insertUsers();
+        insertTasks(users.get(0));
     }
 
     /*
@@ -54,5 +61,29 @@ public class DataSeed {
         userService.changeRole(user2, UserRole.ADMIN);
 
         return result;
+    }
+
+    private void insertCategories() {
+        categoryRepository.save(Category.builder().title("Main").build());
+    }
+
+    private void insertTasks(User author) {
+
+        CreateTaskRequest req1 = CreateTaskRequest.builder()
+                .title("First task!")
+                .description("Lorem ipsum dolor sit amet")
+                .tags("tag1,tag2,tag3")
+                .build();
+
+        taskService.createTask(req1, author);
+
+        CreateTaskRequest req2 = CreateTaskRequest.builder()
+                .title("Second task!")
+                .description("Lorem ipsum dolor sit amet")
+                .tags("tag1,tag2,tag4")
+                .build();
+
+        taskService.createTask(req2, author);
+
     }
 }

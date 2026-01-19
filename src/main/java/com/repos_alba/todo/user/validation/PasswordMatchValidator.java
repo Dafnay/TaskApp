@@ -16,7 +16,7 @@ public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch
 
         if (!matches) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Las contraseñas no coinciden")
+            context.buildConstraintViolationWithTemplate("Passwords do not match")
                     .addPropertyNode("verifyPassword")
                     .addConstraintViolation();
         }

@@ -16,21 +16,21 @@ import lombok.NoArgsConstructor;
 @PasswordMatch
 public class CreateUserRequest {
 
-    @NotBlank(message = "El nombre de usuario es obligatorio")
-    @Size(min = 3, max = 50, message = "El nombre de usuario debe tener entre 3 y 50 caracteres")
+    @NotBlank(message = "Username is required")
+    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
     private String username;
 
-    @NotBlank(message = "La contraseña es obligatoria")
-    @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
 
-    @NotBlank(message = "Debe repetir la contraseña")
+    @NotBlank(message = "Please confirm your password")
     private String verifyPassword;
 
-    @NotBlank(message = "El email es obligatorio")
-    @Email(message = "El formato del email no es válido")
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String email;
 
-    @NotBlank(message = "El nombre completo es obligatorio")
+    @NotBlank(message = "Full name is required")
     private String fullname;
 }

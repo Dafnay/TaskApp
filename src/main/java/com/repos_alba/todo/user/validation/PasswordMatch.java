@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = PasswordMatchValidator.class)
 public @interface PasswordMatch {
 
-    String message() default "Las contraseñas no coinciden";
+    String message() default "Passwords do not match";
 
     Class<?>[] groups() default {};
 

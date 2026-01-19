@@ -3,17 +3,18 @@ package com.repos_alba.todo.tag.service;
 import com.repos_alba.todo.tag.model.Tag;
 import com.repos_alba.todo.tag.model.TagRepository;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
+@RequiredArgsConstructor
 public class TagService {
 
     private final TagRepository tagRepository;
-
-    public TagService(TagRepository tagRepository) {
-        this.tagRepository = tagRepository;
-    }
 
     /* Esta función recibe una lista de tags como String,
     y para cada uno de ellos:
