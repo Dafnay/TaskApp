@@ -23,7 +23,7 @@ public class Securityconfig {
 
         http.formLogin(login->{
             login.loginPage("/login")
-                    .defaultSuccessUrl("/")
+                    .defaultSuccessUrl("/", true)
                     .permitAll();
         });
 
