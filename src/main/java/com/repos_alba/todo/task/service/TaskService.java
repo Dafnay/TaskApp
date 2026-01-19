@@ -49,8 +49,18 @@ public class TaskService {
         return result;
     }
 
-    public List<Task> findAllByUser(User user) {
-        return findAll(user);
+    public List<Task> findAllByUser(User user, String filter) {
+        List<Task> tasks = findAll(user);
+
+        if (filter == null) {
+            return tasks;
+        }
+
+        return switch (filter) {
+            case "completed" -> tasks.stream().filter(Task::isCompleted).toList();
+            case "pending" -> tasks.stream().filter(t -> !t.isCompleted()).toList();
+            default -> tasks;
+        };
     }
 
     public List<Task> findAllAdmin() {
@@ -60,6 +70,12 @@ public class TaskService {
     public Task findById(Long id) {
         return taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
+    }
+
+    public Task toggleCompleted(Long id) {
+        Task task = findById(id);
+        task.setCompleted(!task.isCompleted());
+        return taskRepository.save(task);
     }
 
 

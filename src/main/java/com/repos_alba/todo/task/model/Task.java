@@ -30,7 +30,9 @@ public class Task {
     @Lob
 
     private String description;
-    private boolean completed;
+
+    @Builder.Default
+    private boolean completed = false;
 
     @Builder.Default
 

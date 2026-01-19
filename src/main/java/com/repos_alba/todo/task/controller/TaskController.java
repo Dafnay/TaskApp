@@ -14,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -30,8 +32,9 @@ public class TaskController {
         return categoryService.findAll();
     }
     @GetMapping({"/", "list", "/task"})
-    public String taskList(Model model, @AuthenticationPrincipal User user){
-        model.addAttribute("taskList", taskService.findAllByUser(user));
+    public String taskList(Model model, @AuthenticationPrincipal User user,
+                          @RequestParam(required = false) String filter){
+        model.addAttribute("taskList", taskService.findAllByUser(user, filter));
         model.addAttribute("newTask", new CreateTaskRequest());
         return "task-list";
     }
@@ -51,12 +54,18 @@ public class TaskController {
 
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("taskList", taskService.findAllByUser(author));
+            model.addAttribute("taskList", taskService.findAllByUser(author, null));
             return "task-list";
         }
 
         taskService.createTask(req, author);
 
+        return "redirect:/";
+    }
+
+    @GetMapping("/task/{id}/toggle")
+    public String toggleTask(@PathVariable Long id) {
+        taskService.toggleCompleted(id);
         return "redirect:/";
     }
 }

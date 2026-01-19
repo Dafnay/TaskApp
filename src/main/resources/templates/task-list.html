@@ -121,6 +121,14 @@
                         </div>
 
 
+                        <div class="d-flex justify-content-end mb-3" th:if="${param.emptyListError == null}">
+                            <select class="form-select w-auto" onchange="window.location.href=this.value">
+                                <option value="/" th:selected="${param.filter == null}">All tasks</option>
+                                <option th:value="@{/(filter='completed')}" th:selected="${param.filter != null && param.filter[0] == 'completed'}">Completed</option>
+                                <option th:value="@{/(filter='pending')}" th:selected="${param.filter != null && param.filter[0] == 'pending'}">Pending</option>
+                            </select>
+                        </div>
+
                         <table class="table mb-4" th:if="${param.emptyListError == null}">
                             <thead>
                             <tr>
