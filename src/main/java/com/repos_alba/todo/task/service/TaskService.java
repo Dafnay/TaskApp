@@ -4,6 +4,7 @@ import com.repos_alba.todo.category.model.Category;
 import com.repos_alba.todo.category.model.CategoryRepository;
 import com.repos_alba.todo.tag.service.TagService;
 import com.repos_alba.todo.task.dto.CreateTaskRequest;
+import com.repos_alba.todo.task.dto.EditTaskRequest;
 import com.repos_alba.todo.task.exception.EmptyTaskListException;
 import com.repos_alba.todo.task.exception.TaskNotFoundException;
 import com.repos_alba.todo.task.model.Task;
@@ -23,15 +24,6 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final CategoryRepository categoryRepository;
     private  final TagService tagService;
-
-
-//    public List<Task> findAll(){
-//        List<Task> result = taskRepository.findAll();
-//        if(result.isEmpty()){
-//            throw new EmptyTaskListException();
-//        }
-//        return result;
-//    }
 
 
     private List<Task> findAll(User user) {
@@ -72,15 +64,12 @@ public class TaskService {
                 .orElseThrow(() -> new TaskNotFoundException(id));
     }
 
-    public Task toggleCompleted(Long id) {
-        Task task = findById(id);
-        task.setCompleted(!task.isCompleted());
-        return taskRepository.save(task);
-    }
-
-
     public Task createTask(CreateTaskRequest req, User author) {
         return createOrEditTask(req, author);
+    }
+
+    public Task editTask(EditTaskRequest req) {
+        return createOrEditTask(req, null);
     }
 
 
@@ -99,19 +88,38 @@ public class TaskService {
 
         task.setCategory(category);
 
-        // Procesamos los tags que vienen en forma de tag1,tag2,tag3
+        // Procesamos los tags
         List<String> textTags = Arrays.stream(req.getTags().split(","))
                 .map(String::trim)
                 .toList();
-        // Los añadimos a task
+        // Añadimos a task
         task.getTags().addAll(tagService.saveOrGet(textTags));
 
-
+        // Esto si queremos editar un Task
+        if (req instanceof EditTaskRequest editReq) {
+            Task oldTask = findById(editReq.getId());
+            task.setId(oldTask.getId());
+            task.setCreatedAt(oldTask.getCreatedAt());
+            task.setAuthor(oldTask.getAuthor());
+            task.setCompleted(editReq.isCompleted());
+        } else {
             task.setAuthor(author);
-
+        }
 
         // Inserta o actualiza, según corresponda
         return taskRepository.save(task);
 
     }
+
+
+    public Task toggleCompleted(Long id) {
+        Task task = findById(id);
+        task.setCompleted(!task.isCompleted());
+        return taskRepository.save(task);
+    }
+
+    public void deleteById(Long id) {
+        taskRepository.deleteById(id);
+    }
+
 }

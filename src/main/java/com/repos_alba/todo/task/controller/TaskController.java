@@ -4,6 +4,8 @@ package com.repos_alba.todo.task.controller;
 import com.repos_alba.todo.category.model.Category;
 import com.repos_alba.todo.category.service.CategoryService;
 import com.repos_alba.todo.task.dto.CreateTaskRequest;
+import com.repos_alba.todo.task.dto.EditTaskRequest;
+import com.repos_alba.todo.task.model.Task;
 import com.repos_alba.todo.task.service.TaskService;
 import com.repos_alba.todo.user.model.User;
 import jakarta.validation.Valid;
@@ -63,9 +65,44 @@ public class TaskController {
         return "redirect:/";
     }
 
+
+    @GetMapping("/task/{id}")
+    public String viewOrEditTask(@PathVariable Long id, Model model) {
+
+        Task task = taskService.findById(id);
+        EditTaskRequest editTask = EditTaskRequest.of(task);
+        model.addAttribute("task", editTask);
+        return "show-task";
+
+    }
+
+
+    @PostMapping("/task/edit/submit")
+    public String taskEditSubmit(
+            @Valid @ModelAttribute("task") EditTaskRequest req,
+            BindingResult bindingResult,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "show-task";
+        }
+
+        taskService.editTask(req);
+
+        return "redirect:/";
+    }
+
+
     @GetMapping("/task/{id}/toggle")
     public String toggleTask(@PathVariable Long id) {
         taskService.toggleCompleted(id);
+        return "redirect:/";
+    }
+
+
+    @PostMapping("/task/{id}/del")
+    public String deleteTask(@PathVariable Long id) {
+        taskService.deleteById(id);
         return "redirect:/";
     }
 }
