@@ -122,4 +122,11 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
+    public List<Task> updateCategory(Category oldCategory, Category newCategory) {
+        List<Task> tasks = taskRepository.findByCategory(oldCategory);
+        tasks.forEach(t -> t.setCategory(newCategory));
+        taskRepository.saveAll(tasks);
+        return tasks;
+    }
+
 }

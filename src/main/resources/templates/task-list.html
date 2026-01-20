@@ -66,50 +66,42 @@
                 <div class="card rounded-3">
                     <div class="card-body p-4">
 
-                      <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2"
+                      <form class="mb-4 pb-2"
                               action="#" th:action="@{/task/submit}" method="POST" th:object="${newTask}" sec:authorize="hasRole('ROLE_USER')">
-                            <h3>Create new task</h3>
-                            <div class="col-12">
-                                <div class="form-outline">
-                                    <label class="form-label" for="task-title">Task title</label>
-                                    <div class="input-group has-validation">
-                                        <input type="text" id="task-title" class="form-control"
-                                               th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : 'is-valid'"
-                                               th:field="*{title}" aria-describedby="validation-title"/>
-                                        <div id="validation-title" class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
-
-                                        </div>
+                            <h3 class="mb-3">Create new task</h3>
+                            <div class="mb-3">
+                                <label class="form-label" for="task-title">Task title</label>
+                                <input type="text" id="task-title" class="form-control"
+                                       th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : 'is-valid'"
+                                       th:field="*{title}" aria-describedby="validation-title"/>
+                                <div id="validation-title" class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="task-desc">Description</label>
+                                <textarea class="form-control" id="task-desc" rows="3" placeholder="Optional..." th:field="*{description}"></textarea>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="category" class="form-label">Category</label>
+                                    <select id="category" th:field="*{categoryId}" class="form-select"
+                                            th:classappend="${#fields.hasErrors('categoryId')} ? 'is-invalid' : 'is-valid'"
+                                            aria-describedby="validation-categoryid">
+                                        <option value="-1">---</option>
+                                        <option th:each="category : ${categories}"
+                                                th:value="${category.id}" th:text="${category.title}">
+                                            Category</option>
+                                    </select>
+                                    <div id="validation-categoryid" class="invalid-feedback" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}">
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-outline">
-                                        <label class="form-label" for="task-desc">Description</label>
-                                        <textarea class="form-control" id="task-desc" rows="3" placeholder="Optional..." th:field="*{description}"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <label for="category">Category</label>
-                                    <div class="input-group has-validation">
-                                        <select id="category" th:field="*{categoryId}" class="form-select"
-                                                th:classappend="${#fields.hasErrors('categoryId')} ? 'is-invalid' : 'is-valid'"
-                                                aria-describedby="validation-categoryid">
-                                            <option value="-1">---</option>
-                                            <option th:each="category : ${categories}"
-                                                    th:value="${category.id}" th:text="${category.title}">
-                                                Category</option>
-                                        </select>
-                                        <div id="validation-categoryid" class="invalid-feedback" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
+                                <div class="col-md-6">
                                     <label class="form-label" for="task-tags">Tags</label>
                                     <input type="text" id="task-tags" class="form-control" th:field="*{tags}" placeholder="tag1, tag2, tag3, ..."/>
                                 </div>
                             </div>
-
-                            <div class="col-12" style="margin-top: 10px;">
-                                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary">Save</button>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
 
@@ -164,8 +156,6 @@
     </div>
 
 </main>
-
-<!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
