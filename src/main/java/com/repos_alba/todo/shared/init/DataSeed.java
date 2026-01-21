@@ -41,8 +41,8 @@ public class DataSeed {
         CreateUserRequest req = CreateUserRequest.builder()
                 .username("user")
                 .email("user@user.com")
-                .password("1234")
-                .verifyPassword("1234")
+                .password("123456")
+                .verifyPassword("123456")
                 .fullname("The user")
                 .build();
         User user = userService.registerUser(req);
@@ -50,9 +50,9 @@ public class DataSeed {
 
         CreateUserRequest req2 = CreateUserRequest.builder()
                 .username("admin")
-                .email("admin@openwebinars.net")
-                .password("1234")
-                .verifyPassword("1234")
+                .email("admin@admin.com")
+                .password("123456")
+                .verifyPassword("123456")
                 .fullname("Administrador")
                 .build();
         User user2 = userService.registerUser(req2);

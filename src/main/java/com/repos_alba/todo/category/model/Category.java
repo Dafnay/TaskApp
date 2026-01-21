@@ -3,6 +3,7 @@ package com.repos_alba.todo.category.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -19,8 +20,9 @@ public class Category {
 
     @Id
     @GeneratedValue
-
     private Long id;
+
+    @NotBlank(message = "Category title is required")
     private String title;
 
     @Override

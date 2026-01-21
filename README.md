@@ -50,8 +50,8 @@ cd TaskApp
 
 | Usuario | Contraseña | Rol |
 |---------|------------|-----|
-| admin   | 1234       | ADMIN |
-| user    | 1234       | USER |
+| admin   | 123456     | ADMIN |
+| user    | 123456     | USER |
 
 ## Estructura del proyecto
 

@@ -2,6 +2,7 @@ package com.repos_alba.todo.category.controller;
 
 import com.repos_alba.todo.category.model.Category;
 import com.repos_alba.todo.category.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +25,12 @@ public class CategoryAdminController {
     }
 
     @PostMapping("/category/submit")
-    public String processNewCategory(@ModelAttribute("newCategory") Category newCategory, BindingResult bindingResult) {
+    public String processNewCategory(@Valid @ModelAttribute("newCategory") Category newCategory, BindingResult bindingResult, Model model) {
 
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categoryList", categoryService.findAll());
             return "admin/admin-categories";
+        }
 
         categoryService.save(newCategory);
 

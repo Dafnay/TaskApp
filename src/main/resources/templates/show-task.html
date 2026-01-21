@@ -25,10 +25,10 @@
                             <h3 class="mb-3">Edit task</h3>
                             <input type="hidden" th:field="*{id}" />
                             <div class="mb-3">
-                                <label class="form-label" for="task-title">Task title</label>
+                                <label class="form-label required" for="task-title">Task title</label>
                                 <input type="text" id="task-title" class="form-control"
-                                       th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : 'is-valid'"
-                                       th:field="*{title}" aria-describedby="validation-title" required/>
+                                       th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'"
+                                       th:field="*{title}" aria-describedby="validation-title"/>
                                 <div id="validation-title" class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                             </div>
                             <div class="mb-3">
@@ -37,9 +37,9 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label for="category" class="form-label">Category</label>
+                                    <label for="category" class="form-label required">Category</label>
                                     <select id="category" th:field="*{categoryId}" class="form-select"
-                                            th:classappend="${#fields.hasErrors('categoryId')} ? 'is-invalid' : 'is-valid'"
+                                            th:classappend="${#fields.hasErrors('categoryId')} ? 'is-invalid'"
                                             aria-describedby="validation-categoryid">
                                         <option value="-1">---</option>
                                         <option th:each="category : ${categories}"

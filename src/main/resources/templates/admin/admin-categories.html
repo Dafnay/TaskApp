@@ -4,56 +4,57 @@
       layout:decorate="~{layout-admin}">
 <head>
     <title>Categories</title>
+    <style layout:fragment="styles">
+        .container {
+            max-width: 900px;
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col">
-                <div class="card rounded-3">
-                    <div class="card-body p-4">
-                        <form class="mb-4 pb-2"
-                              action="#" th:action="@{/admin/category/submit}" method="POST" th:object="${newCategory}">
-                            <h3 class="mb-3">Create new category</h3>
-                            <div class="row mb-3">
-                                <div class="col-md-8">
-                                    <label class="form-label" for="category-title">Category title</label>
-                                    <input type="text" id="category-title" class="form-control"
-                                           th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : 'is-valid'"
-                                           th:field="*{title}" aria-describedby="validation-title" required/>
-                                    <div id="validation-title" class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4 d-flex align-items-end">
-                                    <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save</button>
-                                </div>
+    <div class="container py-5">
+        <div class="card rounded-3">
+            <div class="card-body p-4">
+                <form class="mb-4 pb-2"
+                      action="#" th:action="@{/admin/category/submit}" method="POST" th:object="${newCategory}">
+                    <h3 class="mb-3">Create new category</h3>
+                    <div class="row mb-3">
+                        <div class="col-10">
+                            <label class="form-label required" for="category-title">Category title</label>
+                            <input type="text" id="category-title" class="form-control"
+                                   th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'"
+                                   th:field="*{title}" aria-describedby="validation-title"/>
+                            <div id="validation-title" class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
                             </div>
-                        </form>
-
-                        <table class="table mb-4">
-                            <thead>
-                            <tr>
-                                <th scope="col">Id.</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="category : ${categoryList}">
-                                <th scope="row" th:text="${category.id}">1</th>
-                                <td th:text="${category.title}">Main</td>
-                                <td>
-                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                       th:data-category-id="${category.id}" title="Delete"
-                                       th:classappend="${category.id} == 1 ? 'disabled'"><i class="bi bi-trash"></i></a>
-                                    <form style="display:none" th:action="@{/admin/category/{id}/del(id=${category.id})}" method="post" th:id="${'delete-category-'+category.id}"></form>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
+                        </div>
+                        <div class="col-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100"><i class="bi bi-save"></i> Save</button>
+                        </div>
                     </div>
-                </div>
+                </form>
+
+                <table class="table mb-4">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="width: 80px;">Id.</th>
+                        <th scope="col">Title</th>
+                        <th scope="col" style="width: 100px;" class="text-end">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="category : ${categoryList}">
+                        <th scope="row" th:text="${category.id}">1</th>
+                        <td th:text="${category.title}">Main</td>
+                        <td class="text-end">
+                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                               th:data-category-id="${category.id}" title="Delete"
+                               th:classappend="${category.id} == 1 ? 'disabled'"><i class="bi bi-trash"></i></a>
+                            <form style="display:none" th:action="@{/admin/category/{id}/del(id=${category.id})}" method="post" th:id="${'delete-category-'+category.id}"></form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
