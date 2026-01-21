@@ -1,31 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>New user</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
-    <style>
+    <title>Register</title>
+    <style layout:fragment="styles">
         main {
-          margin-top: 25px;
+            margin-top: 25px;
         }
-
     </style>
 </head>
-<body class="d-flex flex-column h-100">
-
-
-<nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
-    <div class="container-fluid">
-        <h1 class="d-flex align-items-center fs-4 text-white mb-0">
-            <img src="../static/img/logo.png" th:src="@{/img/logo.png}" width="38" height="40" class="me-3" alt="Bootstrap">
-            TaskApp
-        </h1>
-    </div>
-</nav>
-<main class="flex-shrink-0">
+<body>
+<div layout:fragment="content">
     <h1 class="text-center">Register new user</h1>
     <div class="container">
         <div class="row">
@@ -67,13 +53,6 @@
             </div>
         </div>
     </div>
-
-</main>
-<footer class="footer mt-auto py-3 bg-light fixed-bottom">
-    <div class="container text-center">
-        <span class="text-muted">TaskApp - Alba Velasco González</span>
-    </div>
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</div>
 </body>
 </html>

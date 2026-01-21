@@ -22,19 +22,18 @@ public class DataSeed {
     private final UserService userService;
     private final CategoryRepository categoryRepository;
     private final TaskService taskService;
+    private final com.repos_alba.todo.user.model.UserRepository userRepository;
 
     @PostConstruct
     public void init() {
-
-        insertCategories();
-        List<User> users =insertUsers();
-        insertTasks(users.get(0));
+        // Solo insertar datos si no existen usuarios
+        if (userRepository.count() == 0) {
+            insertCategories();
+            List<User> users = insertUsers();
+            insertTasks(users.get(0));
+        }
     }
 
-    /*
-        Solamente devuelve aquellos que son UserRole.USER
-        para poder usarlos como autores de Task
-     */
     private List<User> insertUsers() {
 
         List<User> result = new ArrayList<>();
