@@ -2,6 +2,7 @@ package com.repos_alba.todo.category.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -19,7 +20,7 @@ import java.util.Objects;
 public class Category {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Category title is required")

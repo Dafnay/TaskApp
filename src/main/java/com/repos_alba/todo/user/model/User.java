@@ -2,6 +2,7 @@ package com.repos_alba.todo.user.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -23,8 +24,7 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username, password, email, fullname;
     private  UserRole role;

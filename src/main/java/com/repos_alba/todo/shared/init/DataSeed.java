@@ -69,16 +69,16 @@ public class DataSeed {
     private void insertTasks(User author) {
 
         CreateTaskRequest req1 = CreateTaskRequest.builder()
-                .title("First task!")
-                .description("Lorem ipsum dolor sit amet")
+                .title("Primera Tarea!")
+                .description("Esta es la descripción de la primera tarea")
                 .tags("tag1,tag2,tag3")
                 .build();
 
         taskService.createTask(req1, author);
 
         CreateTaskRequest req2 = CreateTaskRequest.builder()
-                .title("Second task!")
-                .description("Lorem ipsum dolor sit amet")
+                .title("Segunda Tarea!")
+                .description("Esta es la descripción de la segunda tarea")
                 .tags("tag1,tag2,tag4")
                 .build();
 
